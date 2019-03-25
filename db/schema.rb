@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_03_25_193410) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "author"
@@ -41,8 +44,8 @@ ActiveRecord::Schema.define(version: 2019_03_25_193410) do
 
   create_table "sail_entries", force: :cascade do |t|
     t.string "value", null: false
-    t.integer "setting_id"
-    t.integer "profile_id"
+    t.bigint "setting_id"
+    t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_sail_entries_on_profile_id"
@@ -62,7 +65,7 @@ ActiveRecord::Schema.define(version: 2019_03_25_193410) do
     t.text "description"
     t.string "value", null: false
     t.string "group"
-    t.integer "cast_type", limit: 1, null: false
+    t.integer "cast_type", limit: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_settings_on_name", unique: true
@@ -76,4 +79,6 @@ ActiveRecord::Schema.define(version: 2019_03_25_193410) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "sail_entries", "sail_profiles", column: "profile_id"
+  add_foreign_key "sail_entries", "sail_settings", column: "setting_id"
 end
