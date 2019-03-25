@@ -1,0 +1,49 @@
+# Rails.root/config/sail.yml
+# Setting name with it's information contained inside
+# These values are used for the reset functionality as well
+# rake sail:load_defaults
+ReusePassword:
+  description: ReusePassword
+  value: true
+  cast_type: boolean
+  group: feature_flags
+RetryLimitExceeded:
+  description: RetryLimitExceeded
+  value: false
+  cast_type: boolean
+  group: feature_flags
+DeveloperMessage:
+  description: DeveloperMessage
+  value: "Login succeeded"
+  cast_type: string
+  group: feature_flag
+UserMessage:
+  description: UserMessage
+  value: "Login succeeded"
+  cast_type: string
+  group: feature_flag
+Version:
+  description: Version
+  value: "1"
+  cast_type: string
+  group: feature_flag
+IsEmailValidated:
+  description: IsEmailValidated
+  value: true
+  cast_type: boolean
+  group: feature_flag
+LoginSucceeded:
+  description: LoginSucceeded
+  value: true
+  cast_type: boolean
+  group: feature_flag
+Status:
+  description: Status
+  value: "OK"
+  cast_type: string
+  group: feature_flag
+RequestId:
+  description: RequestId
+  value: "xxx"
+  cast_type: string
+  group: feature_flag

@@ -14,14 +14,36 @@ class V1::LegacyapisController < ApplicationController
       end
     
       def show
-        legacyapis = Legacyapi.find(params[:id])
-        render json: legacyapi, status: :ok
+        if params[:id] =~ /[0-9]*/
+          legacyapis = Legacyapi.find(params[:id])
+          render json: legacyapis, status: :ok
+        end
+
+        if params[:email] 
+          params.each do |id, value|
+            puts id.to_s + " : " + value.to_s
+          end
+
+          
+          legacyapis = Legacyapi.where(email: params[:email]).first 
+          legacyapis.ReusePassword = Sail.get("ReusePassword") 
+          legacyapis.RetryLimitExceeded = Sail.get("RetryLimitExceeded") 
+          legacyapis.DeveloperMessage = Sail.get("DeveloperMessage")
+          legacyapis.UserMessage = Sail.get("UserMessage")
+          legacyapis.Version = Sail.get("Version")
+          legacyapis.IsEmailValidated = Sail.get("IsEmailValidated") 
+          legacyapis.LoginSucceeded = Sail.get("LoginSucceeded")
+          legacyapis.Status = Sail.get("Status") 
+          legacyapis.RequestId = Sail.get("RequestId") 
+          
+          render json: legacyapis, status: :ok
+        end
       end
     
       def update
         legacyapis = Legacyapi.find(params[:id])
         if book.update(legacyapi_params)
-          render json: legacyapi, status: :ok
+          render json: legacyapis, status: :ok
         else
           render json: { errors: legacyapi.errors }, status: :unprocessable_entity
         end
@@ -36,7 +58,7 @@ class V1::LegacyapisController < ApplicationController
         private
         
         def legacyapi_params
-          params.require(:legacyapi).permit(:LoginSucceeded, :RetryLimitExceeded, :IsEmailValidated, :ReusePassword, :Version, :Status, :UserMessage, :DeveloperMessage, :RequestId)
+          params.require(:legacyapi).permit(:LoginSucceeded, :RetryLimitExceeded, :IsEmailValidated, :ReusePassword, :Version, :Status, :UserMessage, :DeveloperMessage, :RequestId, :email)
         end
     
     end

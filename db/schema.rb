@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_112911) do
+ActiveRecord::Schema.define(version: 2019_03_25_193410) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -36,6 +36,36 @@ ActiveRecord::Schema.define(version: 2019_03_25_112911) do
     t.string "RequestId"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+  end
+
+  create_table "sail_entries", force: :cascade do |t|
+    t.string "value", null: false
+    t.integer "setting_id"
+    t.integer "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_sail_entries_on_profile_id"
+    t.index ["setting_id"], name: "index_sail_entries_on_setting_id"
+  end
+
+  create_table "sail_profiles", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "active", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_sail_profiles_on_name", unique: true
+  end
+
+  create_table "sail_settings", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "value", null: false
+    t.string "group"
+    t.integer "cast_type", limit: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_settings_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
