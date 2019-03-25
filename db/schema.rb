@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_24_184017) do
+ActiveRecord::Schema.define(version: 2019_03_25_112911) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -20,6 +20,20 @@ ActiveRecord::Schema.define(version: 2019_03_24_184017) do
     t.string "language"
     t.integer "pages"
     t.datetime "publication_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "legacyapis", force: :cascade do |t|
+    t.boolean "LoginSucceeded"
+    t.boolean "RetryLimitExceeded"
+    t.boolean "IsEmailValidated"
+    t.boolean "ReusePassword"
+    t.decimal "Version"
+    t.string "Status"
+    t.string "UserMessage"
+    t.string "DeveloperMessage"
+    t.string "RequestId"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

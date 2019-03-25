@@ -1,0 +1,2 @@
+class Legacyapi < ApplicationRecord
+end
