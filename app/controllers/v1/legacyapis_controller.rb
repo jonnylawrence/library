@@ -25,7 +25,8 @@ class V1::LegacyapisController < ApplicationController
           end
 
           
-          legacyapis = Legacyapi.where(email: params[:email]).first 
+          #legacyapis = Legacyapi.where(email: params[:email]).first 
+          legacyapis.email = params[:email] 
           legacyapis.ReusePassword = Sail.get("ReusePassword") 
           legacyapis.RetryLimitExceeded = Sail.get("RetryLimitExceeded") 
           legacyapis.DeveloperMessage = Sail.get("DeveloperMessage")
