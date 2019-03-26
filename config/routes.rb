@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   get '/v1/legacyapis/:email', to: 'v1/legacyapis#show', constraints: { email: /[^\/]+/}
   mount Sail::Engine => '/sail'
+  root '/sail'
   end
