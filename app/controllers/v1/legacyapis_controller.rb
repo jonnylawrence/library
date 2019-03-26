@@ -14,19 +14,22 @@ class V1::LegacyapisController < ApplicationController
       end
     
       def show
-        if params[:id] =~ /[0-9]*/
-          legacyapis = Legacyapi.find(params[:id])
-          render json: legacyapis, status: :ok
-        end
+        # if params[:id] =~ /[0-9]*/
+        #   legacyapis = Legacyapi.find(params[:id])
+        #   render json: legacyapis, status: :ok
+        # end
 
-        if params[:email] 
-          params.each do |id, value|
-            puts id.to_s + " : " + value.to_s
-          end
+        # if params[:email] 
+        #   params.each do |id, value|
+        #     puts id.to_s + " : " + value.to_s
+        #   end
 
           
           #legacyapis = Legacyapi.where(email: params[:email]).first 
-          legacyapis.email = params[:email] 
+          legacyapis = Legacyapi.new
+
+          legacyapis.email ||= params[:email] 
+          legacyapis.email ||= params[:id] 
           legacyapis.ReusePassword = Sail.get("ReusePassword") 
           legacyapis.RetryLimitExceeded = Sail.get("RetryLimitExceeded") 
           legacyapis.DeveloperMessage = Sail.get("DeveloperMessage")
@@ -38,7 +41,7 @@ class V1::LegacyapisController < ApplicationController
           legacyapis.RequestId = Sail.get("RequestId") 
           
           render json: legacyapis, status: :ok
-        end
+        #end
       end
     
       def update
